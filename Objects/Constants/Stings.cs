@@ -4,5 +4,6 @@
     {
         internal static string ServerStarted = "Server started.";
         internal static string ClientStarted = "Client started.";
+        internal static string PacketArgumentSeperator = "%";
     }
 }

@@ -1,30 +1,35 @@
-﻿namespace CoolChatRoom.Objects.Structures
+﻿using System.Text;
+using CoolChatRoom.Objects.Factories;
+using CoolChatRoom.Objects.Packets.Bases;
+
+namespace CoolChatRoom.Objects.Structures
 {
     internal class Receiver
     {
+        public event EventHandler<Packet> PacketReceived;
+
         internal void Start(NetworkStream Stream)
         {
             new Thread(() => { Recieve(Stream); }).Start();
         }
 
-        public void Recieve(NetworkStream Stream)
+        internal void Recieve(NetworkStream Stream)
         {
             Byte[] Bytes = new Byte[256];
-            string? Data;
+            string Data;
+            int i;
 
-            while(true)
+            while ((i = Stream.Read(Bytes, 0, Bytes.Length)) != 0)
             {
-                int i;
-                Data = null;
-
-                while((i = Stream.Read(Bytes, 0, Bytes.Length)) != 0)
-                {
-                    Data = System.Text.Encoding.ASCII.GetString(Bytes, 0, i);
-                    Data = Data.ToUpper();
-                }
-
-                if (Data != null) Console.WriteLine(Data); 
+                Data = Encoding.ASCII.GetString(Bytes, 0, i);
+                var Packet = PacketFactory.CreatePacket(Data);
+                OnPacketRecieved(Packet);
             }
+        }
+
+        protected virtual void OnPacketRecieved(Packet Packet)
+        {
+            PacketReceived(null, Packet);
         }
     }
 }

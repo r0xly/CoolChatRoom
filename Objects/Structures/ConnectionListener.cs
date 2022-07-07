@@ -1,4 +1,6 @@
-﻿using CoolChatRoom.Objects.Sockets;
+﻿using CoolChatRoom.Objects.Packets.Implementations;
+using CoolChatRoom.Objects.Entities;
+using CoolChatRoom.Objects.Sockets.Implementations;
 
 namespace CoolChatRoom.Objects.Structures
 {
@@ -21,10 +23,15 @@ namespace CoolChatRoom.Objects.Structures
             while (Server.Active)
             {
                 TcpClient Client = await Server.AcceptTcpClientAsync();
-                Console.WriteLine($"New client :o {Client.ToString}");
+                UserEntity User = new(Client);
+                Console.WriteLine($"New connection.");
 
-                byte[] Message = { 77, 77 }; 
-                await Server.WriteAsync(Client, Message);
+                ServerMessagePacket Packet = new()
+                {
+                    Content = "Hello world!",
+                };
+
+                await User.SendPacketAsync(Packet);
             }
         }
     }

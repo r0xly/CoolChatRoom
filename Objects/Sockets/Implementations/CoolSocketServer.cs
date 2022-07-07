@@ -1,16 +1,11 @@
 ﻿using CoolChatRoom.Objects.Configs;
-using CoolChatRoom.Objects.Structures;
-using CoolChatRoom.Objects.Constants;
-using System.Text;
+using CoolChatRoom.Objects.Sockets.Base;
 
-namespace CoolChatRoom.Objects.Sockets
+namespace CoolChatRoom.Objects.Sockets.Implementations
 {
-    public class CoolSocketServer
+    public class CoolSocketServer : CoolSocket
     {
-        public bool Active
-        {
-            get { return TcpListener.Server.IsBound; }
-        }
+        public bool Active => TcpListener.Server.IsBound;
 
         private CoolSocketServerParams Parameters;
         private TcpListener TcpListener;
@@ -32,7 +27,7 @@ namespace CoolChatRoom.Objects.Sockets
                 ConnectionListener.Start();
                 Console.WriteLine(Strings.ServerStarted);
             }
-            catch(SocketException e)
+            catch (SocketException e)
             {
                 Console.WriteLine($"SocketException: {e}");
             }
@@ -41,12 +36,6 @@ namespace CoolChatRoom.Objects.Sockets
         public async Task<TcpClient> AcceptTcpClientAsync()
         {
             return await TcpListener.AcceptTcpClientAsync();
-        }
-
-        public async Task WriteAsync(TcpClient Client, byte[] Message)
-        {
-            NetworkStream Stream = Client.GetStream();
-            await Stream.WriteAsync(Message, 0, Message.Length);
         }
     }
 }
