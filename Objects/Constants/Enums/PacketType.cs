@@ -5,5 +5,6 @@
         Connect,
         ServerMessage,
         UserMessage,
+        UserJoinedPacket,
     }
 }

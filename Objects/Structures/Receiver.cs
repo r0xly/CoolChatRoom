@@ -4,7 +4,7 @@ using CoolChatRoom.Objects.Packets.Bases;
 
 namespace CoolChatRoom.Objects.Structures
 {
-    internal class Receiver
+    public class Receiver
     {
         public event EventHandler<Packet> PacketReceived;
 
@@ -19,17 +19,24 @@ namespace CoolChatRoom.Objects.Structures
             string Data;
             int i;
 
-            while ((i = Stream.Read(Bytes, 0, Bytes.Length)) != 0)
+            try
             {
-                Data = Encoding.ASCII.GetString(Bytes, 0, i);
-                var Packet = PacketFactory.CreatePacket(Data);
-                OnPacketRecieved(Packet);
+                while (Stream.CanRead && (i = Stream.Read(Bytes, 0, Bytes.Length)) != 0)
+                {
+                    Data = Encoding.ASCII.GetString(Bytes, 0, i);
+                    var Packet = PacketFactory.CreatePacket(Data);
+                    OnPacketRecieved(Packet);
+                }
             }
+            catch { }
         }
 
         protected virtual void OnPacketRecieved(Packet Packet)
         {
-            PacketReceived(null, Packet);
+
+            EventHandler<Packet> Handler = PacketReceived;
+            if (Handler != null)
+                Handler(this, Packet);
         }
     }
 }

@@ -15,23 +15,24 @@ namespace CoolChatRoom.Objects.Sockets.Implementations
         public CoolSocketClient(CoolSocketClientParams Parameters)
         {
             this.Parameters = Parameters;
+            DisplayLogs = Parameters.DisplayLogs;
             Receiver = new();
             Receiver.PacketReceived += (s, e) => OnPacketRecieved(e); 
         }
 
-        public void Connect(string Username)
+        public void Connect(string Name)
         {
             try
             {
                 TcpClient = new(Parameters.IP, Parameters.Port);
                 Receiver.Start(TcpClient.GetStream());
 
-                SendPacket(new ConnectionPacket()
+                SendPacketAsync(new LogInPacket()
                 {
-                    Username = Username,
-                });
+                    Name = Name,
+                }).GetAwaiter().GetResult();
 
-                Console.WriteLine(Strings.ClientStarted);
+                Log(Strings.ClientStarted, this);
             }
             catch (ArgumentNullException e)
             {
@@ -43,11 +44,11 @@ namespace CoolChatRoom.Objects.Sockets.Implementations
             }
         }
 
-        public void SendPacket(Packet Packet)
+        public async Task SendPacketAsync(Packet Packet)
         {
             byte[] Bytes = Encoding.ASCII.GetBytes(Packet.Serialize());
             NetworkStream Stream = TcpClient.GetStream();
-            Stream.Write(Bytes, 0, Bytes.Length);
+            await Stream.WriteAsync(Bytes, 0, Bytes.Length);
         }
 
     }

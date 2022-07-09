@@ -4,5 +4,6 @@
     {
         public Int32 Port { get; set; }
         public string IP { get; set; }
+        public bool DisplayLogs { get; set; } = false;
     }
 }

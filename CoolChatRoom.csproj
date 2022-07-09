@@ -10,4 +10,8 @@
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="JWT" Version="9.0.3" />
+  </ItemGroup>
+
 </Project>

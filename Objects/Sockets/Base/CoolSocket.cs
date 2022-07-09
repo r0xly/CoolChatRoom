@@ -6,10 +6,13 @@ namespace CoolChatRoom.Objects.Sockets.Base
     public abstract class CoolSocket
     {
         public event EventHandler<Packet> PacketReceived;
+        public bool DisplayLogs;
 
         protected virtual void OnPacketRecieved(Packet Packet)
         {
-            PacketReceived(this, Packet);
+            EventHandler<Packet> Handler = PacketReceived;
+            if (Handler != null)
+                Handler(this, Packet);
         }
         public Listener<T> AddPacketListener<T>()
         {
@@ -21,6 +24,11 @@ namespace CoolChatRoom.Objects.Sockets.Base
             };
 
             return PacketListener;            
+        }
+
+        public void Log(string Message, object Source, LogLevel Level = LogLevel.Info)
+        {
+            if (DisplayLogs) Console.WriteLine($"{DateTime.Now.ToString()} | {Level.ToString().ToUpper()} | {Source.ToString().Split(".").Last()} | {Message}"); 
         }
     }
 }
