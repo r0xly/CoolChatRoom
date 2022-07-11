@@ -2,7 +2,7 @@
 
 namespace CoolChatRoom.Objects.Packets.Bases
 {
-    public interface Packet
+    public interface IPacket
     {
         public static PacketType Type { get; }
         public string Serialize();

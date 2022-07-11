@@ -32,7 +32,7 @@ namespace CoolChatRoom.Objects.Structures
         {
             UserEntity User = new(Client);
 
-            void HandlePacketRecieved(object? Source, Packet Packet)
+            void HandlePacketRecieved(object? Source, IPacket Packet)
             {
                 if (Packet is LogInPacket LogInPacket)
                 {

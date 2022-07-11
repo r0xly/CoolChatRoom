@@ -5,12 +5,12 @@ namespace CoolChatRoom.Objects.Sockets.Base
 {
     public abstract class CoolSocket
     {
-        public event EventHandler<Packet> PacketReceived;
+        public event EventHandler<IPacket> PacketReceived;
         public bool DisplayLogs;
 
-        protected virtual void OnPacketRecieved(Packet Packet)
+        protected virtual void OnPacketRecieved(IPacket Packet)
         {
-            EventHandler<Packet> Handler = PacketReceived;
+            EventHandler<IPacket> Handler = PacketReceived;
             if (Handler != null)
                 Handler(this, Packet);
         }

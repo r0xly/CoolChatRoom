@@ -59,7 +59,7 @@ namespace CoolChatRoom.Objects.Sockets.Implementations
             Log($"User added: {User.Name}");
         }
 
-        public async Task BrodcastAsync(Packet Packet, UserEntity[]? Filter)
+        public async Task BrodcastAsync(IPacket Packet, UserEntity[]? Filter)
         { 
         
             foreach (var User in UserList)

@@ -2,7 +2,7 @@
 
 namespace CoolChatRoom.Objects.Packets.Bases
 {
-    public interface UserPacket : Packet
+    public interface UserPacket : IPacket
     {
         public UserEntity Source { get; }
     }

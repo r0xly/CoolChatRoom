@@ -6,7 +6,7 @@ namespace CoolChatRoom.Objects.Structures
 {
     public class Receiver
     {
-        public event EventHandler<Packet> PacketReceived;
+        public event EventHandler<IPacket> PacketReceived;
 
         internal void Start(NetworkStream Stream)
         {
@@ -31,10 +31,10 @@ namespace CoolChatRoom.Objects.Structures
             catch { }
         }
 
-        protected virtual void OnPacketRecieved(Packet Packet)
+        protected virtual void OnPacketRecieved(IPacket Packet)
         {
 
-            EventHandler<Packet> Handler = PacketReceived;
+            EventHandler<IPacket> Handler = PacketReceived;
             if (Handler != null)
                 Handler(this, Packet);
         }

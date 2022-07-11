@@ -2,7 +2,7 @@
 
 namespace CoolChatRoom.Objects.Packets.Implementations
 {
-    public class ServerMessagePacket : Packet 
+    public class ServerMessagePacket : IPacket 
     {
         public static PacketType Type => PacketType.ServerMessage;
         public string Content { get; set; } = "";
