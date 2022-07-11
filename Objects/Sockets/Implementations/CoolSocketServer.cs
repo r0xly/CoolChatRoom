@@ -30,11 +30,11 @@ namespace CoolChatRoom.Objects.Sockets.Implementations
             {
                 TcpListener.Start();
                 ConnectionListener.Start();
-                Log(Strings.ServerStarted, this);
+                Log(Strings.ServerStarted);
             }
             catch (SocketException e)
             {
-                Log($"SocketException: {e}", this, LogLevel.Error);
+                Log($"SocketException: {e}", LogLevel.Error);
             }
         }
 
@@ -56,7 +56,7 @@ namespace CoolChatRoom.Objects.Sockets.Implementations
             if (Handler != null)
                 Handler(this, User);
 
-            Log($"User added: {User.Name}", this);
+            Log($"User added: {User.Name}");
         }
 
         public async Task BrodcastAsync(Packet Packet, UserEntity[]? Filter)

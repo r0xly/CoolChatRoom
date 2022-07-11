@@ -44,7 +44,7 @@ namespace CoolChatRoom.Objects.Structures
             User.PacketRecieved += HandlePacketRecieved;
 
             var StartTime = DateTime.UtcNow;
-            while (DateTime.UtcNow - StartTime < TimeSpan.FromSeconds(10) && User.Name == null) { }
+            while (DateTime.UtcNow - StartTime < TimeSpan.FromSeconds(1) && User.Name == null) { }
 
             if (User.Name == null)
             {

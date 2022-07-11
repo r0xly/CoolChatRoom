@@ -32,7 +32,7 @@ namespace CoolChatRoom.Objects.Sockets.Implementations
                     Name = Name,
                 }).GetAwaiter().GetResult();
 
-                Log(Strings.ClientStarted, this);
+                Log(Strings.ClientStarted);
             }
             catch (ArgumentNullException e)
             {

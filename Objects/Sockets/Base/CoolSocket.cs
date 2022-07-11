@@ -26,9 +26,13 @@ namespace CoolChatRoom.Objects.Sockets.Base
             return PacketListener;            
         }
 
-        public void Log(string Message, object Source, LogLevel Level = LogLevel.Info)
+        public void Log(string Message, LogLevel Level = LogLevel.Info)
         {
-            if (DisplayLogs) Console.WriteLine($"{DateTime.Now.ToString()} | {Level.ToString().ToUpper()} | {Source.ToString().Split(".").Last()} | {Message}"); 
+            if (!DisplayLogs) return;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"[{DateTime.Now.ToString()}] [{Level.ToString().ToLower()}] ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(Message);
         }
     }
 }
