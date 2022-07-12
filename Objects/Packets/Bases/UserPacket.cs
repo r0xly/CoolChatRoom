@@ -2,8 +2,8 @@
 
 namespace CoolChatRoom.Objects.Packets.Bases
 {
-    public interface UserPacket : IPacket
+    public abstract class UserPacket : Packet
     {
-        public UserEntity Source { get; }
+        public abstract UserEntity Source { get; }
     }
 }

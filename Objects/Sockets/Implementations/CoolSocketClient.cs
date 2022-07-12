@@ -44,7 +44,7 @@ namespace CoolChatRoom.Objects.Sockets.Implementations
             }
         }
 
-        public async Task SendPacketAsync(IPacket Packet)
+        public async Task SendPacketAsync(Packet Packet)
         {
             byte[] Bytes = Encoding.ASCII.GetBytes(Packet.Serialize());
             NetworkStream Stream = TcpClient.GetStream();

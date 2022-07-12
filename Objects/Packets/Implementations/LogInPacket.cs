@@ -2,9 +2,9 @@
 
 namespace CoolChatRoom.Objects.Packets.Implementations
 {
-    public class LogInPacket : IPacket 
+    public class LogInPacket : Packet 
     {
-        public static PacketType Type => PacketType.Connect;
+        public static new string PacketId => "LogIn";
         public string Name { get; set; } = "";
 
         public static LogInPacket Construct(string[] Arguments)
@@ -15,9 +15,9 @@ namespace CoolChatRoom.Objects.Packets.Implementations
             return Packet;
         }
 
-        public string Serialize()
+        public override string Serialize()
         {
-            return $"{Type}%{Name}";
+            return $"{PacketId}%{Name}";
         }
     }
 }

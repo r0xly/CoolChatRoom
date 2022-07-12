@@ -7,7 +7,7 @@ namespace CoolChatRoom.Objects.Entities
     {
         public string? Name;
         public int LastPing;
-        public event EventHandler<IPacket> PacketRecieved;
+        public event EventHandler<Packet> PacketRecieved;
 
         private TcpClient Client;
         private Receiver Reciver;
@@ -28,7 +28,7 @@ namespace CoolChatRoom.Objects.Entities
             Client.Close();
         }
 
-        public async Task SendPacketAsync(IPacket Packet)
+        public async Task SendPacketAsync(Packet Packet)
         {
             byte[] Bytes = Encoding.ASCII.GetBytes(Packet.Serialize());
             NetworkStream Stream = Client.GetStream();

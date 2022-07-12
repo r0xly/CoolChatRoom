@@ -2,9 +2,9 @@
 
 namespace CoolChatRoom.Objects.Packets.Implementations
 {
-    public class ServerMessagePacket : IPacket 
+    public class ServerMessagePacket : Packet 
     {
-        public static PacketType Type => PacketType.ServerMessage;
+        public static new string PacketId => "ServerMessage";
         public string Content { get; set; } = "";
 
         public static ServerMessagePacket Construct(string[] Arguments)
@@ -15,9 +15,9 @@ namespace CoolChatRoom.Objects.Packets.Implementations
             return Packet;
         }
 
-        public string Serialize()
+        public override string Serialize()
         {
-            return $"{Type}%{Content}";
+            return $"{PacketId}%{Content}";
         }
     }
 }
